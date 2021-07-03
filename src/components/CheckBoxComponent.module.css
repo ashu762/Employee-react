@@ -1,0 +1,51 @@
+.form_input {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  margin-bottom: 1rem;
+  font-size: 1.5em;
+}
+
+.error {
+  color: #cd113b;
+  font-size: 1.3rem;
+}
+
+.terms {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+}
+
+.input {
+  margin-right: 1rem;
+  zoom: 2;
+  margin-top: 0.3rem;
+}
+
+.button {
+  border: none;
+  background-color: #e5707e;
+  font-weight: 500;
+
+  color: white;
+  padding: 0.3rem 2.3rem;
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.previous_button {
+  color: white;
+  margin: 1rem;
+  font-size: 2rem;
+  size: 2rem;
+  cursor: pointer;
+}
