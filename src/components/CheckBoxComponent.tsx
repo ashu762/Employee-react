@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CheckBoxComponent.module.css";
 import { useHistory } from "react-router-dom";
-import { idText } from "typescript";
+import { couldStartTrivia, idText } from "typescript";
 type InputProps = {
   questionIndex: number;
   setQuestionIndex: Function;

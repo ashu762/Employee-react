@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./InputComponent.module.css";
+
 type InputProps = {
   type: string;
   message: string;

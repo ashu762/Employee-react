@@ -30,3 +30,38 @@
   font-weight: 500;
   color: rgb(251, 255, 0);
 }
+
+.filter {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+select {
+  font-size: 1.3rem;
+  outline: none;
+  padding: 0.2rem;
+  color: white;
+}
+
+.button {
+  border: none;
+  background-color: #343f56;
+  font-weight: 500;
+
+  color: white;
+  padding: 0.3rem 2.3rem;
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
+
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.input {
+  font-size: 1.4rem;
+  margin: 2rem 3rem;
+  color: white;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid white;
+}

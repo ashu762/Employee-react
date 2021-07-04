@@ -16,15 +16,9 @@ const Card = ({
   spouse,
   comments,
 }: inputProps) => {
-  const colors = ["red", "green", "sky", "teal", "yellow", "pink"];
-
-  const chosen = `avatar_${colors[Math.ceil(Math.random() * 6) - 1]}`;
-
-  const avatar = styles[chosen];
-
   return (
     <div className={styles.card}>
-      <span className={avatar}>AP</span>
+      <span className={styles.avatar}>AP</span>
       <div>
         <span>First Name : </span>
         {firstName}

@@ -6,10 +6,10 @@ import styles from "./FormScreen.module.css";
 type Employee = {
   firstName: string;
   lastName: string;
-  isTermsChecked: boolean;
-  martial_status: "married" | "unmarried";
+
+  martial_status: string;
   spouse?: string;
-  gender: "male" | "female";
+  gender: string;
   comments?: string;
 };
 

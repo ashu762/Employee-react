@@ -28,58 +28,10 @@ span {
   font-weight: 400;
 }
 
-.avatar_red {
-  color: white;
-  display: inline-block;
-  background-color: #30475e;
-  border-radius: 2rem;
-  font-weight: 600;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-}
-
-.avatar_pink {
+.avatar {
   color: white;
   display: inline-block;
   background-color: #f05454;
-  border-radius: 2rem;
-  font-weight: 600;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-}
-
-.avatar_yellow {
-  color: white;
-  display: inline-block;
-  background-color: #c87941;
-  border-radius: 2rem;
-  font-weight: 600;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-}
-
-.avatar_teal {
-  color: white;
-  display: inline-block;
-  background-color: #03c4a1;
-  border-radius: 2rem;
-  font-weight: 600;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-}
-.avatar_sky {
-  color: white;
-  display: inline-block;
-  background-color: rgba(40, 208, 214, 0.726);
-  border-radius: 2rem;
-  font-weight: 600;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-}
-.avatar_green {
-  color: white;
-  display: inline-block;
-  background-color: rgba(69, 240, 26, 0.726);
   border-radius: 2rem;
   font-weight: 600;
   padding: 0.8rem;
