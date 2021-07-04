@@ -1,13 +1,65 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useReducer } from "react";
 import styles from "./PreviousDetailsScreen.module.css";
 import Card from "../components/Card";
 import { debounce } from "../utils/debounce";
+
+const initialState = {
+  loading: true,
+  globalData: [],
+  employeeData: [],
+  dropDownType: "firstName",
+  value: "",
+};
+function reducer(state: any, action: any) {
+  switch (action.type) {
+    case "filter-data":
+      return {
+        ...state,
+        employeeData: state.globalData.filter((ele: any) => {
+          if (state.value === "") return 1;
+          return ele[state.dropDownType] === state.value;
+        }),
+      };
+    case "add-globalData":
+      return {
+        loading: false,
+        globalData: action.data,
+        employeeData: action.data,
+        value: state.value,
+        dropDownType: state.dropDownType,
+      };
+    case "change-input":
+      return {
+        ...state,
+        value: action.value,
+        employeeData: state.globalData.filter((ele: any) => {
+          if (action.value === "") return 1;
+          return (
+            ele[state.dropDownType].toLowerCase() === action.value.toLowerCase()
+          );
+        }),
+      };
+    case "change-dropdown":
+      return {
+        ...state,
+        dropDownType: action.dropDownType,
+        employeeData: state.globalData.filter((ele: any) => {
+          if (state.value === "") return 1;
+          return (
+            ele[action.dropDownType].toLowerCase() === state.value.toLowerCase()
+          );
+        }),
+      };
+  }
+}
+
 const PreviousDetailsScreen = () => {
   const [loading, setLoading] = useState(true);
   const [employeeData, setEmployeeData] = useState<any>([]);
   const [globalData, setGlobalData] = useState<any>([]);
   const [type, setType] = useState("firstName");
   const [value, setValue] = useState(" ");
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     setValue("");
@@ -17,64 +69,23 @@ const PreviousDetailsScreen = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        setGlobalData(response);
-        setEmployeeData(response);
-        setLoading(false);
+        dispatch({ type: "add-globalData", data: response });
       })
       .catch((e) => {
         console.log(e);
       });
   }, []);
 
-  useEffect(() => {
-    console.log("In use Effect!");
-    console.log(type);
-    if (!value || value.length === 0) {
-      setEmployeeData(globalData);
-      return;
-    }
-    let tempData = [];
-    console.log(type);
-    console.log(value);
-    for (let data of globalData) {
-      if (value && data[type].toLowerCase() === value.toLowerCase()) {
-        tempData.push(employeeData);
-      }
-    }
-
-    setEmployeeData(tempData);
-  }, [type]);
-  function filterData(value: string) {
-    if (!value || value.length === 0) {
-      setEmployeeData(globalData);
-      return;
-    }
-    let tempData = [];
-    console.log(type);
-    console.log(value);
-    console.log(globalData);
-    for (let data of globalData) {
-      if (value && data[type].toLowerCase() === value.toLowerCase()) {
-        tempData.push(data);
-      }
-    }
-    console.log(tempData);
-
-    setEmployeeData(tempData);
-  }
-  function filterDataWhenDropDownChanges(value: string, type: string) {}
-  function setChangeHandler(e: any) {
-    setType(e.target.value);
-    filterDataWhenDropDownChanges(value, e.target.value);
-  }
-
   const inputFilterHandler = useCallback(
-    debounce((text: string) => filterData(text), 1000),
+    debounce(
+      (text: string) => dispatch({ type: "change-input", value: text }),
+      1000
+    ),
     []
   );
   return (
     <div className={styles.screen}>
-      {loading ? (
+      {state.loading ? (
         <div>...Loading</div>
       ) : (
         <div>
@@ -85,17 +96,20 @@ const PreviousDetailsScreen = () => {
               <input
                 className={styles.input}
                 onChange={(e) => {
-                  setValue(e.target.value);
                   inputFilterHandler(e.target.value);
                 }}
-                value={value}
               />
 
               <select
                 name="options"
-                value={type}
+                value={state.dropDownType}
                 id="selector"
-                onChange={(e) => setChangeHandler(e)}
+                onChange={(e) => {
+                  dispatch({
+                    type: "change-dropdown",
+                    dropDownType: e.target.value,
+                  });
+                }}
               >
                 <option value="firstName">First Name</option>
                 <option value="lastName">Last Name</option>
@@ -109,7 +123,7 @@ const PreviousDetailsScreen = () => {
             </div>
 
             <div className={styles.form}>
-              {employeeData.map((data: any) => {
+              {state.employeeData.map((data: any) => {
                 return <Card {...data}></Card>;
               })}
             </div>
