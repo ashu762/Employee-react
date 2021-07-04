@@ -1,7 +1,7 @@
 .screen {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 4rem 0rem;
   padding-top: 3rem;
   align-items: center;
 
@@ -21,14 +21,16 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 3rem 2rem;
+  margin: 3rem 0.5rem;
 }
 
 .title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 4rem;
+  margin-bottom: 2rem;
   font-weight: 500;
-  color: rgb(251, 255, 0);
+  color: rgb(42, 208, 214);
+  font-family: Titillium Web;
 }
 
 .filter {

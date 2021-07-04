@@ -54,15 +54,9 @@ function reducer(state: any, action: any) {
 }
 
 const PreviousDetailsScreen = () => {
-  const [loading, setLoading] = useState(true);
-  const [employeeData, setEmployeeData] = useState<any>([]);
-  const [globalData, setGlobalData] = useState<any>([]);
-  const [type, setType] = useState("firstName");
-  const [value, setValue] = useState(" ");
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    setValue("");
     const url = `https://employeeapi2626.herokuapp.com/api/employees`;
     fetch(url, {
       method: "GET",
@@ -79,7 +73,7 @@ const PreviousDetailsScreen = () => {
   const inputFilterHandler = useCallback(
     debounce(
       (text: string) => dispatch({ type: "change-input", value: text }),
-      1000
+      500
     ),
     []
   );

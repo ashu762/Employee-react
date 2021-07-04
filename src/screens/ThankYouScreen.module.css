@@ -33,3 +33,6 @@
 .center_button {
   text-align: center;
 }
+.button:hover {
+  background-color: #cf284c;
+}

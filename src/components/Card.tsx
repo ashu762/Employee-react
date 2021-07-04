@@ -18,7 +18,9 @@ const Card = ({
 }: inputProps) => {
   return (
     <div className={styles.card}>
-      <span className={styles.avatar}>AP</span>
+      <span className={styles.avatar}>
+        {(firstName[0] + lastName[0]).toUpperCase()}
+      </span>
       <div>
         <span>First Name : </span>
         {firstName}
