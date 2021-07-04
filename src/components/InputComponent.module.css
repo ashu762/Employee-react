@@ -26,13 +26,13 @@ label {
   margin: 2rem 4rem;
   width: 20rem;
   font-size: 1.5rem;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #5d6b88;
   text-align: center;
 }
 
 .button {
   border: none;
-  background-color: #e5707e;
+  background-color: #343f56;
   font-weight: 500;
 
   color: white;
@@ -41,6 +41,9 @@ label {
   border-radius: 0.4rem;
   margin-top: 0.5rem;
   cursor: pointer;
+}
+.button:hover {
+  background-color: #cf284c;
 }
 
 .form {

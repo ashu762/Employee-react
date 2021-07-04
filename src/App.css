@@ -1,1 +1,9 @@
+* {
+  background-color: #282c34;
+}
 
+@media screen and (max-width: 800px) {
+  .form {
+    font-size: 12px;
+  }
+}

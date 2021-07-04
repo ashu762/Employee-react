@@ -32,7 +32,7 @@ label {
 
 .button {
   border: none;
-  background-color: #e5707e;
+  background-color: #343f56;
   font-weight: 500;
 
   color: white;
@@ -41,6 +41,9 @@ label {
   border-radius: 0.4rem;
   margin-top: 0.5rem;
   cursor: pointer;
+}
+.button:hover {
+  background-color: #cf284c;
 }
 
 .previous_button {

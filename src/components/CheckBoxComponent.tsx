@@ -26,31 +26,30 @@ const CheckBoxComponent = ({
     if (loading) {
       const url = `https://employeeapi2626.herokuapp.com/api/employees`;
 
-      try {
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            setLoading(false);
-            history.push({
-              pathname: "/success",
-              state: {
-                props: {
-                  data: data,
-                },
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          setLoading(false);
+          history.push({
+            pathname: "/success",
+            state: {
+              props: {
+                data: data,
               },
-            });
+            },
           });
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-        alert("Please try Again!");
-      }
+        })
+        .catch((e) => {
+          console.log(error);
+          setLoading(false);
+          alert("Please try Again!");
+        });
     }
   }, [loading]);
   async function submitHandler() {
