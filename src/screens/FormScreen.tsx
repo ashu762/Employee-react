@@ -45,6 +45,7 @@ const FormScreen = () => {
       message={"Please tell us your Gender"}
       questionIndex={questionIndex}
       setQuestionIndex={setQuestionIndex}
+      name="Gender"
     />,
     <RadioComponent
       type="martial_status"
@@ -54,6 +55,7 @@ const FormScreen = () => {
       message={"Please tell us your Martial Status"}
       questionIndex={questionIndex}
       setQuestionIndex={setQuestionIndex}
+      name="Martial Status"
     />,
     <InputComponent
       type="spouse"
@@ -76,6 +78,7 @@ const FormScreen = () => {
     <CheckBoxComponent
       questionIndex={questionIndex}
       setQuestionIndex={setQuestionIndex}
+      data={data}
     />,
   ];
 

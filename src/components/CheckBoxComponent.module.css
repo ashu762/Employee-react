@@ -9,7 +9,7 @@
 
 label {
   margin-bottom: 1rem;
-  font-size: 1.5em;
+  font-size: 2rem;
 }
 
 .error {
@@ -27,6 +27,7 @@ label {
   margin-right: 1rem;
   zoom: 2;
   margin-top: 0.3rem;
+  font-size: 2rem;
 }
 
 .button {
@@ -43,9 +44,29 @@ label {
 }
 
 .previous_button {
+  border: none;
+  background-color: #282c34;
   color: white;
   margin: 1rem;
   font-size: 2rem;
   size: 2rem;
   cursor: pointer;
+}
+
+.previous_button {
+  position: absolute;
+  color: white;
+  margin: 1rem;
+  font-size: 2rem;
+  size: 2rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  * {
+    font-size: 12px;
+  }
+  .input {
+    zoom: 1;
+  }
 }

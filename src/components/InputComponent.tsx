@@ -19,7 +19,7 @@ const InputComponent = ({
   name,
 }: InputProps) => {
   const [error, setError] = useState("");
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(data[type]);
   const [changer, setChanger] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const InputComponent = ({
 
   function validator(s: string): boolean {
     if (!required) return true;
-    if (s.trim().length === 0) {
+    if (!s || s.trim().length === 0) {
       setError("Please enter a value");
       return false;
     }
@@ -51,6 +51,7 @@ const InputComponent = ({
       data[type] = value;
       setError("");
       setValue("");
+      setChanger(true);
       setQuestionIndex(questionIndex + 1);
       return;
     }
@@ -72,9 +73,12 @@ const InputComponent = ({
   return (
     <React.Fragment>
       {questionIndex > 0 && (
-        <span onClick={goToPreviousQuestion} className={styles.previous_button}>
+        <button
+          onClick={goToPreviousQuestion}
+          className={styles.previous_button}
+        >
           &larr;
-        </span>
+        </button>
       )}
       <div className={styles.form_input}>
         <label>{message}</label>
@@ -87,6 +91,7 @@ const InputComponent = ({
             onKeyPress={(e) => {
               handleEnterPress(e);
             }}
+            autoFocus
           ></input>
           <button className={styles.button} onClick={(e) => submitHandler(e)}>
             Next

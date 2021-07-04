@@ -1,5 +1,5 @@
 import { classes } from "istanbul-lib-coverage";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./RadioComponent.module.css";
 type InputProps = {
   type: string;
@@ -9,6 +9,7 @@ type InputProps = {
   data: any;
   questionIndex: number;
   setQuestionIndex: Function;
+  name: string;
 };
 const RadioComponent = ({
   type,
@@ -18,11 +19,17 @@ const RadioComponent = ({
   value2,
   questionIndex,
   setQuestionIndex,
+  name,
 }: InputProps) => {
   const [error, setError] = useState("");
-  const [value, setValue] = useState("");
-  const [isValue1Checked, setIsValue1Checked] = useState(false);
-  const [isValue2Checked, setIsValue2Checked] = useState(false);
+  const [value, setValue] = useState(data[type] || "");
+  const [changer, setChanger] = useState(false);
+
+  useEffect(() => {
+    setValue(data[type]);
+    setChanger(false);
+  }, [changer]);
+
   function changeHandler(e: any): void {
     setError("");
     setValue(e.target.value);
@@ -31,14 +38,13 @@ const RadioComponent = ({
 
   function submitHandler(e: any) {
     e.preventDefault();
-    if (value.length === 0) {
-      setError(`Please choose a ${type}`);
+    if (!value || value.length === 0) {
+      setError(`Please choose a ${name}`);
     } else {
       data[type] = value;
       setError("");
       setValue("");
-      setIsValue1Checked(false);
-      setIsValue2Checked(false);
+      setChanger(true);
       if (type === "martial_status" && data[type] === "Unmarried")
         setQuestionIndex(questionIndex + 2);
       else setQuestionIndex(questionIndex + 1);
@@ -49,53 +55,67 @@ const RadioComponent = ({
       submitHandler(e);
     }
   }
+  function goToPreviousQuestion(e: any) {
+    setError("");
+    console.log(data);
+
+    setQuestionIndex(questionIndex - 1);
+    setChanger(true);
+    return;
+  }
 
   return (
-    <div className={styles.form_input}>
-      <label className={styles.heading}>{message}</label>
-      {error && <div className={styles.error}>{error}</div>}
-      <form className={styles.form}>
-        <div className={styles.radiocontainer}>
-          <input
-            type="radio"
-            value={value1}
-            name={type}
-            onClick={(e: any) => {
-              setIsValue1Checked(true);
-              setIsValue2Checked(false);
-              setValue(e.target.value);
-            }}
-            className={styles.radio}
-            checked={isValue1Checked}
-          ></input>
-          <span className={styles.radio_label}>{value1}</span>
-          <input
-            type="radio"
-            value={value2}
-            name={type}
-            onClick={(e: any) => {
-              setIsValue2Checked(true);
-              setIsValue1Checked(false);
-              setValue(e.target.value);
-            }}
-            className={styles.radio}
-            checked={isValue2Checked}
-          ></input>
-          <span className={styles.radio_label}>{value2}</span>
-        </div>
-
+    <React.Fragment>
+      {
         <button
-          className={styles.button}
-          onClick={submitHandler}
-          type="submit"
-          onKeyPress={(e) => {
-            handleEnterPress(e);
-          }}
+          onClick={goToPreviousQuestion}
+          className={styles.previous_button}
         >
-          Next
+          &larr;
         </button>
-      </form>
-    </div>
+      }
+      <div className={styles.form_input}>
+        <label className={styles.heading}>{message}</label>
+        {error && <div className={styles.error}>{error}</div>}
+        <form className={styles.form}>
+          <div className={styles.radiocontainer}>
+            <input
+              type="radio"
+              value={value1}
+              name={type}
+              onClick={(e: any) => {
+                setValue(e.target.value);
+              }}
+              className={styles.radio}
+              checked={value === value1 ? true : false}
+            ></input>
+            <span className={styles.radio_label}>{value1}</span>
+            <input
+              type="radio"
+              value={value2}
+              name={type}
+              onClick={(e: any) => {
+                setValue(e.target.value);
+              }}
+              className={styles.radio}
+              checked={value === value2 ? true : false}
+            ></input>
+            <span className={styles.radio_label}>{value2}</span>
+          </div>
+
+          <button
+            className={styles.button}
+            onClick={submitHandler}
+            type="submit"
+            onKeyPress={(e) => {
+              handleEnterPress(e);
+            }}
+          >
+            Next
+          </button>
+        </form>
+      </div>
+    </React.Fragment>
   );
 };
 
