@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ThankYouScreen.module.css";
 import { useHistory } from "react-router-dom";
-const ThankYouScreen = () => {
+const ThankYouScreen: React.FC = () => {
   const history = useHistory();
   function submitAnotherFormHandler() {
     history.push({

@@ -1,17 +1,18 @@
 import { classes } from "istanbul-lib-coverage";
 import React, { useState, useEffect } from "react";
 import styles from "./RadioComponent.module.css";
+import { Employee } from "../types/EmployeeType";
 type InputProps = {
-  type: string;
+  type: "martial_status" | "gender";
   message: string;
   value1: string;
   value2: string;
-  data: any;
+  data: Employee;
   questionIndex: number;
   setQuestionIndex: Function;
   name: string;
 };
-const RadioComponent = ({
+const RadioComponent: React.FC<InputProps> = ({
   type,
   message,
   data,
@@ -20,7 +21,7 @@ const RadioComponent = ({
   questionIndex,
   setQuestionIndex,
   name,
-}: InputProps) => {
+}) => {
   const [error, setError] = useState("");
   const [value, setValue] = useState(data[type] || "");
   const [changer, setChanger] = useState(false);
@@ -30,14 +31,15 @@ const RadioComponent = ({
     setChanger(false);
   }, [changer]);
 
-  function changeHandler(e: any): void {
+  function changeHandler(e: React.ChangeEvent<HTMLInputElement>): void {
     setError("");
     setValue(e.target.value);
     console.log(e);
   }
 
-  function submitHandler(e: any) {
+  function submitHandler(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
+    console.log("asdsasds");
     if (!value || value.length === 0) {
       setError(`Please choose a ${name}`);
     } else {
@@ -50,14 +52,9 @@ const RadioComponent = ({
       else setQuestionIndex(questionIndex + 1);
     }
   }
-  function handleEnterPress(e: any) {
-    if (e.keyCode === 13) {
-      submitHandler(e);
-    }
-  }
-  function goToPreviousQuestion(e: any) {
+  function goToPreviousQuestion(e: React.MouseEvent<HTMLButtonElement>) {
+    if (e.detail === 0) return;
     setError("");
-    console.log(data);
 
     setQuestionIndex(questionIndex - 1);
     setChanger(true);
@@ -68,6 +65,7 @@ const RadioComponent = ({
     <React.Fragment>
       {
         <button
+          type="reset"
           onClick={goToPreviousQuestion}
           className={styles.previous_button}
         >
@@ -83,7 +81,7 @@ const RadioComponent = ({
               type="radio"
               value={value1}
               name={type}
-              onClick={(e: any) => {
+              onChange={(e: any) => {
                 setValue(e.target.value);
               }}
               className={styles.radio}
@@ -94,7 +92,7 @@ const RadioComponent = ({
               type="radio"
               value={value2}
               name={type}
-              onClick={(e: any) => {
+              onChange={(e: any) => {
                 setValue(e.target.value);
               }}
               className={styles.radio}
@@ -107,9 +105,6 @@ const RadioComponent = ({
             className={styles.button}
             onClick={submitHandler}
             type="submit"
-            onKeyPress={(e) => {
-              handleEnterPress(e);
-            }}
           >
             Next
           </button>

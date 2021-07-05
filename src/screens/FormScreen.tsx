@@ -3,19 +3,17 @@ import InputComponent from "../components/InputComponent";
 import RadioComponent from "../components/RadioComponent";
 import CheckBoxComponent from "../components/CheckBoxComponent";
 import styles from "./FormScreen.module.css";
-type Employee = {
-  firstName: string;
-  lastName: string;
-
-  martial_status: string;
-  spouse?: string;
-  gender: string;
-  comments?: string;
-};
-
-const FormScreen = () => {
+import { Employee } from "../types/EmployeeType";
+const FormScreen: React.FC = () => {
   const [questionIndex, setQuestionIndex] = useState<number>(0);
-  const [data, setData] = useState({});
+  const [data, setData] = useState<Employee>({
+    firstName: "",
+    lastName: "",
+    comments: "",
+    spouse: "",
+    martial_status: "",
+    gender: "",
+  });
 
   const questions = [
     <InputComponent

@@ -8,14 +8,14 @@ type inputProps = {
   spouse?: string;
   comments?: string;
 };
-const Card = ({
+const Card: React.FC<inputProps> = ({
   firstName,
   lastName,
   gender,
   martial_status,
   spouse,
   comments,
-}: inputProps) => {
+}) => {
   return (
     <div className={styles.card}>
       <span className={styles.avatar}>

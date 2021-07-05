@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import styles from "./HomeScreen.module.css";
-const HomeScreen = () => {
+const HomeScreen: React.FC = () => {
   const history = useHistory();
   function submitFormHandler() {
     history.push({

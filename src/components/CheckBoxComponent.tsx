@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import styles from "./CheckBoxComponent.module.css";
 import { useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import { Employee } from "../types/EmployeeType";
 type InputProps = {
   questionIndex: number;
   setQuestionIndex: Function;
-  data: object;
+  data: Employee;
 };
-const CheckBoxComponent = ({
+const CheckBoxComponent: React.FC<InputProps> = ({
   questionIndex,
   setQuestionIndex,
   data,
-}: InputProps) => {
+}) => {
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState("");
   const [changer, setChanger] = useState(false);
@@ -25,7 +26,7 @@ const CheckBoxComponent = ({
   useEffect(() => {
     if (loading) {
       const url = `https://employeeapi2626.herokuapp.com/api/employees`;
-
+      if (data["martial_status"] === "Unmarried") data["spouse"] = "";
       fetch(url, {
         method: "POST",
         headers: {
@@ -60,7 +61,7 @@ const CheckBoxComponent = ({
     setError("");
     setLoading(true);
   }
-  function goToPreviousQuestion(e: any) {
+  function goToPreviousQuestion() {
     setError("");
     setQuestionIndex(questionIndex - 1);
     setChanger(true);

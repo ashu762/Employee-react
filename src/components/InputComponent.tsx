@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, KeyboardEvent } from "react";
 import styles from "./InputComponent.module.css";
-
+import { Employee } from "../types/EmployeeType";
 type InputProps = {
-  type: string;
+  type: "firstName" | "lastName" | "spouse" | "comments";
   message: string;
   required: boolean;
   questionIndex: number;
   setQuestionIndex: Function;
-  data: any;
+  data: Employee;
   name?: string;
 };
-const InputComponent = ({
+const InputComponent: React.FC<InputProps> = ({
   type,
   required,
   data,
@@ -18,13 +18,13 @@ const InputComponent = ({
   questionIndex,
   setQuestionIndex,
   name,
-}: InputProps) => {
+}) => {
   const [error, setError] = useState("");
-  const [value, setValue] = useState(data[type]);
+  const [value, setValue] = useState(data[type] || "");
   const [changer, setChanger] = useState(false);
 
   useEffect(() => {
-    setValue(data[type]);
+    setValue(data[type] || "");
     setChanger(false);
   }, [changer]);
 
@@ -41,12 +41,12 @@ const InputComponent = ({
     setError("");
     return true;
   }
-  function changeHandler(e: any): void {
+  function changeHandler(e: React.ChangeEvent<HTMLInputElement>): void {
     validator(e.target.value);
     setValue(e.target.value);
   }
 
-  function submitHandler(e: any) {
+  function submitHandler(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     if (validator(value)) {
       data[type] = value;
@@ -57,13 +57,9 @@ const InputComponent = ({
       return;
     }
   }
-
-  function handleEnterPress(e: any) {
-    if (e.keyCode === 13) submitHandler(e);
-  }
-  function goToPreviousQuestion(e: any) {
+  function goToPreviousQuestion() {
     setError("");
-    console.log(data);
+
     if (type === "comments" && data["martial_status"] === "Unmarried")
       setQuestionIndex(questionIndex - 2);
     else setQuestionIndex(questionIndex - 1);
@@ -90,12 +86,13 @@ const InputComponent = ({
             className={styles.input}
             onChange={(e) => changeHandler(e)}
             value={value}
-            onKeyPress={(e) => {
-              handleEnterPress(e);
-            }}
             autoFocus
           ></input>
-          <button className={styles.button} onClick={(e) => submitHandler(e)}>
+          <button
+            className={styles.button}
+            onClick={(e) => submitHandler(e)}
+            type="submit"
+          >
             Next
           </button>
         </form>
