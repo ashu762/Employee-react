@@ -5,7 +5,7 @@ const ThankYouScreen = () => {
   const history = useHistory();
   function submitAnotherFormHandler() {
     history.push({
-      pathname: "/",
+      pathname: "/form",
     });
   }
   function viewPreviousForms() {

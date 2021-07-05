@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CheckBoxComponent.module.css";
 import { useHistory } from "react-router-dom";
-import { couldStartTrivia, idText } from "typescript";
+import Loader from "react-loader-spinner";
 type InputProps = {
   questionIndex: number;
   setQuestionIndex: Function;
@@ -57,6 +57,7 @@ const CheckBoxComponent = ({
       setError("Please check the terms and Conditions");
       return;
     }
+    setError("");
     setLoading(true);
   }
   function goToPreviousQuestion(e: any) {
@@ -77,7 +78,13 @@ const CheckBoxComponent = ({
           &larr;
         </button>
       )}
+
       <div className={styles.form_input}>
+        {loading && (
+          <div className={styles.loading}>
+            <Loader type="Oval" color="#00BFFF" height={100} width={100} />
+          </div>
+        )}
         {error && <div className={styles.error}>{error}</div>}
         <div className={styles.terms}>
           <input

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, useReducer } from "react";
 import styles from "./PreviousDetailsScreen.module.css";
 import Card from "../components/Card";
 import { debounce } from "../utils/debounce";
+import Loader from "react-loader-spinner";
 
 const initialState = {
   loading: true,
@@ -80,7 +81,9 @@ const PreviousDetailsScreen = () => {
   return (
     <div className={styles.screen}>
       {state.loading ? (
-        <div>...Loading</div>
+        <div className={styles.center}>
+          <Loader type="Oval" color="#00BFFF" height={100} width={100} />
+        </div>
       ) : (
         <div>
           <div>
@@ -115,12 +118,15 @@ const PreviousDetailsScreen = () => {
                 Submit
               </button>
             </div>
-
-            <div className={styles.form}>
-              {state.employeeData.map((data: any) => {
-                return <Card {...data}></Card>;
-              })}
-            </div>
+            {state.employeeData.length === 0 ? (
+              <div className={styles.no_result}>No Results Found!!</div>
+            ) : (
+              <div className={styles.form}>
+                {state.employeeData.map((data: any) => {
+                  return <Card {...data}></Card>;
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}

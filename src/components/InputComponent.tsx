@@ -83,6 +83,7 @@ const InputComponent = ({
       )}
       <div className={styles.form_input}>
         <label>{message}</label>
+
         {error && <div className={styles.error}>{error}</div>}
         <form className={styles.form}>
           <input
