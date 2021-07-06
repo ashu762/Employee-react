@@ -3,24 +3,40 @@ import styles from "./PreviousDetailsScreen.module.css";
 import Card from "../components/Card";
 import { debounce } from "../utils/debounce";
 import Loader from "react-loader-spinner";
-
-const initialState = {
+import { Employee } from "../types/EmployeeType";
+interface StateProps {
+  loading: boolean;
+  value: string;
+  dropDownType: string;
+  employeeData: Employee[];
+  globalData: Employee[];
+}
+const initialState: StateProps = {
   loading: true,
   globalData: [],
   employeeData: [],
   dropDownType: "firstName",
   value: "",
 };
-function reducer(state: any, action: any) {
+
+interface ActionWithData {
+  type: "add-globalData";
+  data: Employee[];
+}
+
+interface ActionChangeInput {
+  type: "change-input";
+  value: string;
+}
+interface ActionChangeDropDown {
+  type: "change-dropdown";
+  dropDownType: string;
+}
+
+type Action = ActionWithData | ActionChangeDropDown | ActionChangeInput;
+
+function reducer(state: StateProps, action: Action): StateProps {
   switch (action.type) {
-    case "filter-data":
-      return {
-        ...state,
-        employeeData: state.globalData.filter((ele: any) => {
-          if (state.value === "") return 1;
-          return ele[state.dropDownType] === state.value;
-        }),
-      };
     case "add-globalData":
       return {
         loading: false,
@@ -51,6 +67,8 @@ function reducer(state: any, action: any) {
           );
         }),
       };
+    default:
+      return state;
   }
 }
 
