@@ -141,7 +141,7 @@ const PreviousDetailsScreen = () => {
             ) : (
               <div className={styles.form}>
                 {state.employeeData.map((data: any) => {
-                  return <Card {...data}></Card>;
+                  return <Card {...data} key={data._id}></Card>;
                 })}
               </div>
             )}

@@ -6,6 +6,7 @@ type inputProps = {
   gender: string;
   martial_status: string;
   spouse?: string;
+
   comments?: string;
 };
 const Card: React.FC<inputProps> = ({
